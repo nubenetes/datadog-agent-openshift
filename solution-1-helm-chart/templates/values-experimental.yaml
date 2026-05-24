@@ -1,0 +1,149 @@
+# https://github.com/DataDog/helm-charts/issues/1097
+registry: gcr.io/datadoghq
+datadog:
+  serviceAccountName: datadog-agent
+  hostNetwork: true
+  apiKeyExistingSecret: datadog-secret
+  appKeyExistingSecret: datadog-secret
+  apiKey: api-key # <DATADOG_API_KEY>
+  appKey: app-key # <DATADOG_APP_KEY>
+  site:  datadoghq.eu
+  kubeStateMetricsEnabled: true
+  kubeStateMetricsNetworkPolicy:
+    create: false
+  kubeStateMetricsCore:
+    enabled: true
+  clusterName: ocp-devtest
+  kubelet:
+    host:
+      valueFrom:
+        fieldRef:
+          fieldPath: status.hostIP
+    tlsVerify: false
+  logs:
+    enabled: false
+    containerCollectAll: false
+  apm:
+    socketEnabled: true
+    portEnabled: true
+    enabled: false
+    port: 8126
+  env:
+    - name: DD_HOSTNAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+  serviceMonitoring:
+    enabled: true
+  prometheusScrape:
+    enabled: true
+    serviceEndpoints: false
+  processAgent:
+    enabled: true
+    processCollection: true
+  networkMonitoring:
+    enabled: true
+  criSocketPath:  /var/run/crio/crio.sock 
+  # datadog.securityContext -- Allows you to overwrite the default PodSecurityContext on the Daemonset or Deployment
+  securityContext:
+    runAsUser: 0
+    seLinuxOptions:
+      user: "system_u"
+      role: "system_r"
+      type: "spc_t"
+      level: "s0"
+  # containers:
+  #   readinessprobe:
+  #     initialDelaySeconds: 60
+  #     periodSeconds: 60
+  #   system-probe:
+  #     resources:
+  #       limits:
+  #         cpu: "2"
+  #         memory: 1Gi
+  # datadog.confd -- Provide additional check configurations (static and Autodiscovery)
+
+  ## Each key becomes a file in /conf.d
+  ## ref: https://github.com/DataDog/datadog-agent/tree/main/Dockerfiles/agent#optional-volumes
+  ## ref: https://docs.datadoghq.com/agent/autodiscovery/
+  confd: #{}
+    ntp.yaml: |-
+      init_config:
+      instances:
+        -
+          ## @param offset_threshold - integer - optional - default: 60
+          ## Offset threshold in seconds above which a CRITICAL service check is sent.
+          #
+          offset_threshold: 60
+          ## @param hosts - list of strings - optional - default: ntp host of cloud provider if detected, else <X>.datadog.pool.ntp.org
+          ## List of NTP hosts to connect to, default is the private NTP server of the Cloud Provider if one is detected, otherwise
+          ## `<X>.datadog.pool.ntp.org`, where <X> is a number between 0 and 3.
+          #
+          # hosts:
+          #   - 0.datadog.pool.ntp.org
+          #   - 1.datadog.pool.ntp.org
+          #   - 2.datadog.pool.ntp.org
+          #   - 3.datadog.pool.ntp.org
+          ## @param host - string - optional
+          ## Single NTP server hostname or IP address to connect to.
+          #
+          # host: <NTP_SERVER>
+          host: timeserver.example.local
+          ## @param port - integer - optional - default: 123
+          ## Port to use when reaching the NTP server.
+          #
+          # port: 123
+          ## @param version - integer - optional - default: 3
+          ## Version of NTP to use.
+          #
+          # version: 3
+          ## @param timeout - integer - optional - default: 5
+          ## The timeout for connecting to the NTP server in second.
+          #
+          # timeout: 5
+          ## @param use_local_defined_servers - boolean - optional - default: false
+          ## Use the ntp servers defined in the host.    
+          ## For Unix system, the servers defined in "/etc/{ntp,xntp,ntpd,chrony}.conf" and "/etc/openntpd/ntpd.conf" are used.
+          ## For Windows system, the servers defined in registry key HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Parameters\NtpServer are used.
+          #
+          use_local_defined_servers: true
+  #   redisdb.yaml: |-
+  #     init_config:
+  #     instances:
+  #       - host: "name"
+  #         port: "6379"
+  #   kubernetes_state.yaml: |-
+  #     ad_identifiers:
+  #       - kube-state-metrics
+  #     init_config:
+  #     instances:
+  #       - kube_state_url: http://%%host%%:8080/metrics
+  nodeLabelsAsTags:
+    beta.kubernetes.io/instance-type: ocp_instance_type
+    kubernetes.io/role: kube_role
+  podLabelsAsTags:
+    app: kube_app
+    release: helm_release
+agents:
+  podSecurity:
+    securityContextConstraints:
+      create: true
+  tolerations:
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/master
+    operator: Exists
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/infra
+    operator: Exists
+clusterAgent:
+  # clusterAgent.replicas -- Specify the of cluster agent replicas, if > 1 it allow the cluster agent to work in HA mode.
+  replicas: 2
+  createPodDisruptionBudget: true
+  serviceAccountName: datadog-agent
+  containers:
+    cluster-agent:
+      securityContext:
+        readOnlyRootFilesystem: false
+kube-state-metrics:
+  securityContext:
+    enabled: false

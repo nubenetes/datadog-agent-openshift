@@ -1,0 +1,13 @@
+#https://olm.operatorframework.io/docs/concepts/crds/catalogsource/
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: operatorhubio-catalog
+  namespace: openshift-marketplace
+spec:
+  sourceType: grpc
+  # grpcPodConfig: # https://docs.openshift.com/container-platform/4.13/operators/admin/olm-managing-custom-catalogs.html
+  #   securityContextConfig: legacy  
+  image: quay.io/operatorhubio/catalog:latest
+  displayName: Community Operators
+  publisher: OperatorHub.io

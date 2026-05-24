@@ -1,0 +1,32 @@
+# https://github.com/DataDog/datadog-operator/blob/main/docs/installation.md
+# https://operatorhub.io/how-to-install-an-operator
+# https://operatorhub.io/operator/datadog-operator
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: my-datadog-operator
+  namespace: openshift-operators
+spec:
+  channel: stable
+  name: datadog-operator
+  source: operatorhubio-catalog
+  sourceNamespace: openshift-marketplace
+  config:
+    resources:
+      requests:
+        memory: "250Mi"
+        cpu: "250m"
+      limits:
+        memory: "250Mi"
+        cpu: "500m"
+    env:
+      - name: DD_API_KEY
+        valueFrom:
+          secretKeyRef: 
+            key: api-key
+            name: datadog-secret
+      - name: DD_APP_KEY
+        valueFrom:
+          secretKeyRef: 
+            key: app-key
+            name: datadog-secret
