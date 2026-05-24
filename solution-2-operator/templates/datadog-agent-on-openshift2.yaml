@@ -1,0 +1,66 @@
+# https://github.com/DataDog/datadog-operator/blob/main/docs/install-openshift.md
+# https://github.com/DataDog/datadog-operator/blob/main/docs/configuration.v2alpha1.md
+# https://github.com/DataDog/datadog-operator/blob/main/examples/datadogagent/v2alpha1
+# https://github.com/DataDog/datadog-operator/blob/main/examples/datadogagent/v2alpha1/datadog-agent-on-openshift.yaml
+apiVersion: datadoghq.com/v2alpha1
+kind: DatadogAgent
+metadata:
+    name: datadog
+    namespace: openshift-operators # same namespace as where the Datadog Operator was deployed
+spec:
+  features:
+    logCollection:
+      enabled: false
+    liveProcessCollection:
+      enabled: true
+    liveContainerCollection:
+      enabled: true
+    apm:
+      enabled: true
+      hostPortConfig: 
+        enabled: true
+        hostPort: 8126      
+    admissionController: #https://docs.datadoghq.com/containers/cluster_agent/admission_controller/?tab=operator
+      enabled: true
+      agentCommunicationMode: "hostip" #"hostip", "service"
+      mutateUnlabelled: false # Enable injecting config without having the pod label 'admission.datadoghq.com/enabled="true"'
+  global:
+    site: 'datadoghq.eu'  
+    clusterName: ocp-devtest
+    credentials:
+      apiSecret:
+        keyName: api-key
+        secretName: datadog-secret
+      appSecret:
+        keyName: app-key
+        secretName: datadog-secret
+    criSocketPath: /var/run/crio/crio.sock
+    kubelet:
+      # This is needed if the kubelet certificate is self-signed.
+      # Alternatively, the CA certificate used to sign the kubelet certificate can be mounted.
+      tlsVerify: false
+  override:
+    nodeAgent:
+      # In OpenShift 4.0+, set the hostNetwork parameter to allow access to your cloud provider metadata API endpoint.
+      # This is necessary to retrieve host tags and aliases collected by Datadog cloud provider integrations. 
+      hostNetwork: true
+      securityContext:
+        runAsUser: 0
+        seLinuxOptions:
+          level: s0
+          role: system_r
+          type: spc_t
+          user: system_u
+      serviceAccountName: datadog-agent-scc
+      env: #https://docs.datadoghq.com/containers/guide/autodiscovery-management/?tab=datadogoperator
+      - name: DD_CONTAINER_EXCLUDE
+        value: "kube_namespace:.*"
+      - name: DD_CONTAINER_INCLUDE
+        value: "kube_namespace:^app-a$ kube_namespace:^app-a-pre$ kube_namespace:^app-b$ kube_namespace:^app-b-pre$ kube_namespace:^app-c$ kube_namespace:^datadog-demo$"
+    clusterAgent:
+      serviceAccountName: datadog-agent-scc
+      replicas: 2
+      containers:
+        cluster-agent:
+          securityContext:
+            readOnlyRootFilesystem: false

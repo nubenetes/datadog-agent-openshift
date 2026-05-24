@@ -1,0 +1,136 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springfront
+  namespace: datadog-demo
+  labels:
+    tags.datadoghq.com/env: "dev"
+    tags.datadoghq.com/service: "springfront"
+    tags.datadoghq.com/version: "12"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: springfront
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        name: springfront
+        tags.datadoghq.com/env: "dev"
+        tags.datadoghq.com/service: "springfront"
+        tags.datadoghq.com/version: "12"
+      annotations:
+        admission.datadoghq.com/java-lib.version: "latest"
+        ad.datadoghq.com/springfront.logs: '[{"source": "java", "service": "springfront", "log_processing_rules": [{"type": "multi_line", "name": "log_start_with_date", "pattern" : "\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])"}]}]'
+    spec:
+      containers:
+      - image: example-user/springfront:v2
+        command: ["/bin/sh"]
+        args: ["-c", "java -jar spring-front.jar"]
+        imagePullPolicy: Always
+        name: springfront
+        env:
+          - name: URL
+            value: http://demo-app:8088
+        ports:
+          - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app
+  namespace: datadog-demo
+  labels:
+    tags.datadoghq.com/env: "dev"
+    tags.datadoghq.com/service: "demo-app"
+    tags.datadoghq.com/version: "12"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: demo-app
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        name: demo-app
+        tags.datadoghq.com/env: "dev"
+        tags.datadoghq.com/service: "demo-app"
+        tags.datadoghq.com/version: "12"
+      annotations:
+        admission.datadoghq.com/java-lib.version: "latest"
+        ad.datadoghq.com/demo-app.logs: '[{"source": "java", "service": "demo-app", "log_processing_rules": [{"type": "multi_line", "name": "log_start_with_date", "pattern" : "\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])"}]}]'
+    spec:
+      containers:
+      - image: example-user/demo-app:v2
+        command: ["/bin/sh"]
+        args: ["-c", "java -jar spring-back.jar --server.port=8088"]
+        imagePullPolicy: Always
+        name: demo-app
+        env:
+          - name: DD_PROFILING_ENABLED # https://docs.datadoghq.com/profiler/enabling/java/?tab=datadogprofiler
+            value: 'true'
+        ports:
+          - containerPort: 8088
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: springfront
+  namespace: datadog-demo
+spec:
+  #type: LoadBalancer
+  type: ClusterIP
+  ports:
+  - name: springfront-port 
+    port: 8080 
+    protocol: TCP
+    targetPort: 8080 
+  selector:
+    name: springfront
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-app
+  namespace: datadog-demo
+spec:
+  ports:
+  - name: demo-app-port 
+    port: 8088 
+    protocol: TCP
+    targetPort: 8088 
+  selector:
+    name: demo-app
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: springfront
+  namespace: datadog-demo
+spec:
+  selector:
+    name: springfront
+  rules:
+    - host: apps.cluster.example.com
+      http:
+        paths:
+          - path: /upstream
+            pathType: Prefix
+            backend:
+              service:
+                name: springfront
+                port:
+                  number: 8080
+

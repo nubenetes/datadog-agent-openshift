@@ -1,0 +1,50 @@
+# https://docs.datadoghq.com/containers/kubernetes/distributions/?tab=helm#Openshift
+# https://github.com/DataDog/helm-charts/blob/main/examples/datadog/agent_on_openshift_values.yaml
+# https://github.com/DataDog/helm-charts/blob/main/charts/datadog/values.yaml
+# https://docs.openshift.com/container-platform/4.13/authentication/managing-security-context-constraints.html
+datadog:
+  apiKeyExistingSecret: datadog-secret
+  appKeyExistingSecret: datadog-secret
+  apiKey: api-key
+  appKey: app-key
+  site:  datadoghq.eu
+  clusterName: ocp-devtest
+  criSocketPath: /var/run/crio/crio.sock
+  # Depending on your DNS/SSL setup, it might not be possible to verify the Kubelet cert properly
+  # If you have proper CA, you can switch it to true  
+  kubelet:
+    tlsVerify: false
+  containerExclude: "kube_namespace:.*" #https://docs.datadoghq.com/containers/guide/autodiscovery-management/?tab=helm
+  containerInclude: "kube_namespace:^app-a$ kube_namespace:^app-a-pre$ kube_namespace:^app-b$ kube_namespace:^app-b-pre$ kube_namespace:^app-c$ kube_namespace:^datadog-demo$"
+agents:
+  podSecurity:
+    securityContextConstraints:
+      create: true
+  tolerations:
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/master
+    operator: Exists
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/infra
+    operator: Exists
+clusterAgent:
+  replicas: 2
+  createPodDisruptionBudget: true
+  podSecurity:
+    securityContextConstraints:
+      create: true
+  admissionController:
+    # clusterAgent.admissionController.mutateUnlabelled -- Enable injecting config without having the pod label 'admission.datadoghq.com/enabled="true"'
+    mutateUnlabelled: false #true # https://docs.datadoghq.com/tracing/trace_collection/library_injection_local/?tab=kubernetes
+      # Se ha probado a activar "mutateUnlabelled: true", pero con un impacto al intentar escalar PODs de 0 a N debido a falta de permisos SCC.
+
+    configMode: "hostip" #"hostip", "socket" or "service"
+      ## If clusterAgent.admissionController.configMode is not set:
+      ##   * and datadog.apm.socketEnabled is true, the Admission Controller uses socket.
+      ##   * and datadog.apm.portEnabled is true, the Admission Controller uses hostip.
+      ##   * Otherwise, the Admission Controller defaults to hostip.
+      ## Note: "service" mode relies on the internal traffic service to target the agent running on the local node (requires Kubernetes v1.22+).
+      ## ref: https://docs.datadoghq.com/agent/cluster_agent/admission_controller/#configure-apm-and-dogstatsd-communication-mode
+kube-state-metrics:
+  securityContext:
+    enabled: false

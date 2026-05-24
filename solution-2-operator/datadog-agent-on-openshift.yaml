@@ -1,0 +1,322 @@
+# https://github.com/DataDog/datadog-operator/blob/main/docs/install-openshift.md
+# https://github.com/DataDog/datadog-agent/tree/main/Dockerfiles/manifests
+# https://github.com/DataDog/datadog-operator/blob/main/docs/installation.md
+
+# https://docs.datadoghq.com/infrastructure/containers/configuration/?tab=helm#kubernetes-resources
+# https://docs.datadoghq.com/agent/troubleshooting/debug_mode/?tab=agentv6v7
+
+# https://github.com/DataDog/datadog-operator/blob/main/docs/configuration.v2alpha1.md
+# https://github.com/DataDog/datadog-operator/blob/main/examples/datadogagent/v2alpha1
+# https://docs.datadoghq.com/containers/kubernetes/configuration/?tab=datadogoperator
+
+# https://docs.datadoghq.com/containers/kubernetes/distributions/?tab=operator#Openshift
+
+# OpenShift 4.0+: If you used the OpenShift installer on a supported cloud provider, you must deploy the SCC with allowHostNetwork: true 
+# in the scc.yaml manifest, as well as hostNetwork: true in the Agent configuration to get host tags and aliases. 
+# Access to metadata servers from the Pod network is otherwise restricted.
+
+# The Datadog Operator has a feature that allows users to configure the new Kubernetes State Metrics check (v2.0.0) as a Cluster Level Check. 
+# See the Further Reading section for more details on the v2.0.0 of the check. You will need to have the Datadog Cluster Agent as well as the Cluster Level Check features enabled.
+
+# https://www.datadoghq.com/blog/monitor-kubernetes-docker/
+# https://github.com/kubernetes/kube-state-metrics
+# https://github.com/DataDog/datadog-operator/blob/main/docs/kubernetes_state_metrics.md
+# https://docs.datadoghq.com/containers/kubernetes/data_collected/#kube-state-metrics
+
+
+###########################################################################################################################
+# Kubernetes Control Plane Monitoring
+# https://docs.datadoghq.com/containers/kubernetes/control_plane/?tab=helm#OpenShift4
+# https://docs.datadoghq.com/integrations/kube_apiserver_metrics/
+# https://docs.datadoghq.com/integrations/kube_controller_manager/
+###########################################################################################################################
+
+######################################################################################################################
+# Kubernetes Tag Extraction - Out-of-the-box tags
+# https://docs.datadoghq.com/containers/kubernetes/tag/?tab=datadogoperator
+######################################################################################################################
+
+# https://www.datadoghq.com/blog/monitoring-kubernetes-with-datadog/
+
+apiVersion: datadoghq.com/v2alpha1
+kind: DatadogAgent
+metadata:
+  name: datadog
+  namespace: openshift-operators
+spec:
+  features:
+    logCollection: # https://docs.datadoghq.com/containers/kubernetes/log/?tab=datadogoperator
+      enabled: true
+      containerCollectAll: true # enables Log collection from all containers. Default: false 
+      # When the log “Container Collect All” feature is enabled, all discovered containers have their logs collected, unless otherwise blocked by the rules described below.
+      # True to collect logs from all discovered containers by default. When set to false (default), you need to specify Autodiscovery log configurations to enable log collection.
+      # https://app.datadoghq.eu/logs/onboarding/container
+      # https://docs.datadoghq.com/containers/kubernetes/log/?tab=datadogoperator
+      # https://docs.datadoghq.com/containers/guide/autodiscovery-management/?tab=datadogoperator
+    liveProcessCollection:
+      enabled: false # Licencia Enterprise (al ser de procesos)
+    liveContainerCollection:
+      enabled: true
+    processDiscovery:
+      enabled: false # Licencia Enterprise (al ser de procesos)
+    oomKill:
+      enabled: true
+    tcpQueueLength:
+      enabled: true
+    ebpfCheck:
+      enabled: true # Desactivado al no hacer uso de los USM    
+    apm: # https://docs.datadoghq.com/containers/kubernetes/apm/?tab=operator
+      enabled: true
+      instrumentation: # Single Step APM Instrumentation (Beta) https://docs.datadoghq.com/tracing/trace_collection/automatic_instrumentation/single-step-apm/?tab=kubernetes
+        enabled: true
+        # PROJECT-ID: Specifying at the cluster level: If you don’t inject tracing libraries from the pod spec, you can specify tracing libraries for the entire cluster with 
+        # Single Step Instrumentation configuration. When apm.instrumentation.libVersions is set, only the specified libraries and versions are injected.
+        # https://docs.datadoghq.com/tracing/trace_collection/automatic_instrumentation/single-step-apm/?tab=kubernetes#specifying-at-the-cluster-level
+        libVersions: # Add any libraries and versions you want to set
+          java: latest
+          #python: v1.20.6
+          #js: v4.17.0
+          #dotnet: v2.46.0-musl
+        # Enabling or disabling instrumentation for namespaces: You can only set enabledNamespaces or disabledNamespaces, not both.
+        enabledNamespaces:
+        - app-a
+        - sga
+        - app-b
+        - trident
+        - app-c
+        #- datadog-demo
+        #- default
+        # - openshift-kube-controller-manager
+        # - openshift-operators
+        # - openshift-monitoring
+        # - openshift-kube-scheduler
+        #disabledNamespaces: # Add namespaces to not instrument
+        #  - default
+        #   - applications
+      unixDomainSocketConfig:
+        enabled: false
+      hostPortConfig:
+        enabled: true
+        hostPort: 8126
+    cspm:
+      enabled: false # Parte de seguridad (compliance), facturable
+    cws: # Enabling CSM Cloud Workload Security on Kubernetes - https://docs.datadoghq.com/security/cloud_security_management/setup/csm_cloud_workload_security/agent/kubernetes/?tab=datadogoperator
+      enabled: false # Parte de seguridad (Cloud Workload Security), p.e. scanner de contenedores, facturable
+    npm: #https://docs.datadoghq.com/network_monitoring/performance/setup/?tab=operator
+      enabled: false # Desactivado, no estamos pagando licencia monitorización de red.
+    usm: # Using USM Metrics in Monitors, SLOs, and Dashboards - https://docs.datadoghq.com/universal_service_monitoring/guide/using_usm_metrics
+      enabled: true # No necesario al tener APM activado (más avanzado que el USM), pero incluído en el precio - https://docs.datadoghq.com/universal_service_monitoring/guide/using_usm_metrics/#usm-metrics-vs-apm-metrics
+    admissionController:
+      enabled: true
+      agentCommunicationMode: "hostip" #"hostip", "service", "socket"
+      mutateUnlabelled: true # Enable injecting config without having the pod label 'admission.datadoghq.com/enabled="true"'
+      failurePolicy: ignore # FailurePolicy determines how unrecognized and timeout errors are handled.
+    dogstatsd:
+      originDetectionEnabled: true
+      unixDomainSocketConfig:
+        enabled: false
+      hostPortConfig:
+        enabled: true
+      tagCardinality: orchestrator # TagCardinality configures tag cardinality for the metrics collected using origin detection (low, orchestrator or high). 
+      # Default: low https://docs.datadoghq.com/getting_started/tagging/assigning_tags/?tab=containerizedenvironments#environment-variables
+    externalMetricsServer:
+      # How to autoscale your Kubernetes workload based on your Datadog metrics
+      # https://docs.datadoghq.com/containers/guide/cluster_agent_autoscaling_metrics/?tab=operator
+      enabled: true
+      useDatadogMetrics: false
+      #port: 8443
+    # otlp: # https://docs.datadoghq.com/getting_started/opentelemetry/#sending-observability-data-with-otlp
+    #   receiver:
+    #     protocols:
+    #       grpc:
+    #         enabled: true
+    remoteConfiguration: # https://docs.datadoghq.com/agent/remote_config/?tab=configurationyamlfile#product-and-feature-capabilities
+      enabled: false # activate Remote Configuration. Default: true
+    # sbom:
+    #   enabled: true
+    eventCollection:
+      collectKubernetesEvents: true
+    orchestratorExplorer:
+      enabled: true
+    kubeStateMetricsCore: # https://github.com/DataDog/datadog-operator/blob/main/docs/kubernetes_state_metrics.md
+      enabled: true
+    clusterChecks: # https://github.com/DataDog/datadog-operator/blob/main/docs/kubernetes_state_metrics.md
+      enabled: true
+      # This configuration enables both cluster check and endpoint check dispatching between the Cluster Agent and the Agents.
+      # https://docs.datadoghq.com/containers/cluster_agent/clusterchecks
+      # https://docs.datadoghq.com/containers/cluster_agent/endpointschecks/?tab=operator
+      useClusterChecksRunners: true
+    prometheusScrape:
+      # https://github.com/DataDog/datadog-operator/blob/main/examples/datadogagent/v2alpha1/datadog-agent-with-prometheus-autodiscovery-advanced-config.yaml
+      # https://docs.datadoghq.com/containers/kubernetes/prometheus
+      enabled: true
+      enableServiceEndpoints: true
+      additionalConfigs: |-
+        - autodiscovery:
+          kubernetes_annotations:
+            include:
+              app: tibco-bwce-arg-online
+          kubernetes_container_names:
+          - tibco-bwce-arg-online
+        configurations:
+        - send_distribution_buckets: true
+          timeout: 5
+  global:
+    site: 'datadoghq.eu'
+    tags:
+    - env:'prod'
+    # https://docs.datadoghq.com/tracing/trace_collection/automatic_instrumentation/single-step-apm/?tab=kubernetes
+    clusterName: ocp-prod
+    credentials:
+      apiSecret:
+        secretName: datadog-secret
+        keyName: api-key
+      appSecret:
+        secretName: datadog-secret
+        keyName: app-key
+        #clusterAgentToken:  
+        # You can specify the Datadog Cluster Agent token used to secure the communication between the Cluster Agent(s) and the Agents
+        # https://docs.datadoghq.com/containers/cluster_agent/setup
+        # https://docs.datadoghq.com/containers/guide/clustercheckrunners/?tab=operator
+    criSocketPath: /var/run/crio/crio.sock
+    kubelet:
+      # This is needed if the kubelet certificate is self-signed.
+      # Alternatively, the CA certificate used to sign the kubelet certificate can be mounted.
+      tlsVerify: false
+    nodeLabelsAsTags: # https://docs.datadoghq.com/containers/kubernetes/tag/?tab=datadogoperator
+      node-role.kubernetes.io/infra=: infra
+      node-role.kubernetes.io/worker=: worker
+      node-role.kubernetes.io/control-plane=: control-plane
+      # podLabelsAsTags: #https://docs.datadoghq.com/containers/kubernetes/tag
+      #   app: kube_app
+      #"*": <PREFIX>_%%label%%
+      # namespaceLabelsAsTags:
+      #   "*": kube_namespace_%%label%%
+  override:
+    nodeAgent:
+      hostNetwork: true
+      serviceAccountName: datadog-agent-scc
+      # The nodeAgent Security Context override is necessary for Log Collection and APM Trace Collection with the /var/run/datadog/apm/apm.socket socket. 
+      # If these features are not enabled, you can omit this override.
+      # securityContext: 
+      #   runAsUser: 0
+      #   seLinuxOptions:
+      #     user: system_u
+      #     role: system_r
+      #     type: spc_t
+      #     level: s0
+      image:
+        name: gcr.io/datadoghq/agent:latest
+        jmxEnabled: true # https://docs.datadoghq.com/containers/guide/autodiscovery-with-jmx/?tab=operator
+      tolerations:
+      - operator: Exists
+      #   - key: node-role.kubernetes.io/control-plane # node-role.kubernetes.io/master (deprecated)
+      #     operator: Exists
+      #     effect: NoSchedule
+      #   - key: node-role.kubernetes.io/infra
+      #     operator: Exists
+      #     effect: NoSchedule
+      containers:
+        readinessprobe:
+          initialDelaySeconds: 60
+          periodSeconds: 60
+          # system-probe:
+          #   resources:
+          #     limits:
+          #       cpu: "2"
+          #       memory: 1Gi
+      env: #https://docs.datadoghq.com/containers/guide/autodiscovery-management/?tab=datadogoperator
+      - name: DD_ENV # https://docs.datadoghq.com/containers/docker/?tab=standard#environment-variables
+        value: prod # Sets the global env tag for all data emitted.
+      - name: DD_TAGS # In your node-based Datadog Agent manifest, you can add custom tags with the environment variable DD_TAGS followed by key:value pairs, separated by spaces. 
+        value: platform:k8s cluster-name:ocp-prod team:arquitectura # https://www.datadoghq.com/blog/monitoring-kubernetes-with-datadog/
+      - name: DD_CLC_RUNNER_ENABLED
+        value: "true"
+      - name: DD_CLC_RUNNER_HOST
+        valueFrom:
+          fieldRef:
+            fieldPath: status.podIP
+      - name: DD_CHECKS_TAG_CARDINALITY
+        value: orchestrator # Add tags to check metrics (low, orchestrator, high) https://docs.datadoghq.com/getting_started/tagging/assigning_tags
+      - name: DD_CONTAINER_EXCLUDE
+        value: kube_namespace:.* name:^reverse-proxy*
+      # https://docs.datadoghq.com/getting_started/tagging/assigning_tags/
+      - name: DD_CONTAINER_INCLUDE
+        value: |
+          name:^tibco-bwce-* name:^tibco-ems-* name:^app-d-* name:^app-b-clientelling* name:^app-c* name:^datadog-agent-* name:^datadog-cluster-agent-* name:^datadog-operator-*
+        # kube_namespace:^default$ kube_namespace:^datadog-demo$
+      # - name: DD_KUBERNETES_POD_LABELS_AS_TAGS
+      #   value: '{"app*": "kube_%%label%%"}'
+      - name: DD_CONTAINER_EXCLUDE_LOGS
+        value: kube_namespace:.* name:^reverse-proxy*
+      - name: DD_CONTAINER_INCLUDE_LOGS
+        value: >
+          name:^tibco-bwce-* name:^tibco-ems-* name:^app-d-* name:^app-b-clientelling* name:^app-c* name:^datadog-agent-* name:^datadog-cluster-agent-* name:^datadog-operator-*  kube_namespace:^datadog-demo$
+        # kube_namespace:^default$
+      - name: DD_LOGS_CONFIG_AUTO_MULTI_LINE_DETECTION # Automatic multi-line aggregation: allows the Agent to detect common multi-line patterns automatically.
+        value: "true" # https://docs.datadoghq.com/agent/logs/advanced_log_collection/?tab=kubernetes#automatic-multi-line-aggregation
+    clusterAgent: #https://github.com/DataDog/datadog-operator/blob/main/docs/cluster_agent_setup.md
+      serviceAccountName: datadog-agent-scc
+      replicas: 2
+      env:
+      - name: DD_CLUSTER_CHECKS_ADVANCED_DISPATCHING_ENABLED # https://docs.datadoghq.com/containers/cluster_agent/clusterchecks
+        value: "true"
+      containers:
+        cluster-agent:
+          securityContext:
+            readOnlyRootFilesystem: false
+    clusterChecksRunner:
+      containers:
+        agent:
+          volumeMounts:
+          - name: etcd-certs
+            readOnly: true
+            mountPath: /etc/etcd-certs
+          - name: disable-etcd-autoconf
+            mountPath: /etc/datadog-agent/conf.d/etcd.d
+      volumes:
+      - name: etcd-certs
+        secret:
+          secretName: kube-etcd-client-certs
+      - name: disable-etcd-autoconf
+        emptyDir: {}
+        #security-agent: 
+      # Cloud Security Management (optional component of the Agent) https://docs.datadoghq.com/security/cloud_security_management/setup/
+      # https://app.datadoghq.eu/security/configuration/csm/setup
+---
+###################################################################################################################################################################
+# Controller Manager and Scheduler -> Secure ports
+# https://docs.datadoghq.com/containers/kubernetes/control_plane/?tab=operator
+# The ssl_verify field in the kube_controller_manager and kube_scheduler configuration needs to be set to false when using self-signed certificates.
+# When targeting secure ports, the bind-address option in your Controller Manager and Scheduler configuration must be reachable by the Datadog Agent.
+###################################################################################################################################################################
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: datadog-checks
+  namespace: openshift-operators
+data:
+  etcd.yaml: |-
+    ad_identifiers:
+      - etcd
+    init_config:
+    instances:
+      - prometheus_url: https://%%host%%:2379/metrics
+        tls_ca_cert: /host/etc/kubernetes/pki/etcd/ca.crt
+        tls_cert: /host/etc/kubernetes/pki/etcd/server.crt
+        tls_private_key: /host/etc/kubernetes/pki/etcd/server.key
+  kube_scheduler.yaml: |-
+    ad_identifiers:
+      - kube-scheduler
+    instances:
+      - prometheus_url: https://%%host%%:10259/metrics
+        ssl_verify: false
+        bearer_token_auth: true
+  kube_controller_manager.yaml: |-
+    ad_identifiers:
+      - kube-controller-manager
+    instances:
+      - prometheus_url: https://%%host%%:10257/metrics
+        ssl_verify: false
+        bearer_token_auth: true
+Notes:

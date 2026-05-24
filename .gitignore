@@ -1,0 +1,16 @@
+# Global patterns
+.DS_Store
+*.bak
+*.tmp
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Project specific backups
+*BACKUP*
+*SAFE*
+*RESTORED*
+*FINAL*
