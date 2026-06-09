@@ -1,11 +1,10 @@
 # Datadog Agent Installation and Configuration Procedure on OpenShift
 
 > [!IMPORTANT]
-> **English Version**:
-> This is a full translation of the original Spanish documentation (`README-Spanish.md`), which was manually written without AI.
->
-> **Spanish Version / Versión en Español**:
-> [README-Spanish.md](README-Spanish.md)
+> **AI Usage Disclosure**:
+> - 💻 **Code**: All code in this repository was generated **without AI assistance**.
+> - 📝 **Documentation**: This English version is a full translation and enhancement of the original Spanish documentation, recently generated with **AI assistance** (including tools like NotebookLM).
+> - 🇪🇸 **Spanish Original**: The original Spanish documentation ([`README-Spanish.md`](README-Spanish.md)) was written **manually**.
 
 ---
 

@@ -1,5 +1,10 @@
 # Procedimiento de instalación y configuración de Datadog Agent en Openshift
 
+> [!NOTE]
+> **Uso de IA**:
+> - 💻 **Código**: Todo el código de este repositorio ha sido generado **sin ayuda de la IA**.
+> - 📝 **Documentación**: Este fichero en español es el **original escrito a mano**. Recientemente se ha utilizado IA (incluyendo NotebookLM) para generar la documentación en inglés y el README principal.
+
 ---
 
 ## 🤖 Resúmenes generados por IA (NotebookLM)

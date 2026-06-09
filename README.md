@@ -1,14 +1,12 @@
 # 🛠️ Master Engineering Documentation: Datadog on OpenShift
 
 > [!IMPORTANT]
-> **Spanish Version / Versión en Español**:
-> Este repositorio cuenta con una versión original en español redactada manualmente sin el uso de IA: [README-Spanish.md](README-Spanish.md).
+> **AI Usage Disclosure**:
+> - 💻 **Code**: All code in this repository was generated **without AI assistance**.
+> - 📝 **Documentation**: This `README.md` and the English version ([`README-English.md`](README-English.md)) were recently enhanced and generated with **AI assistance** (including tools like NotebookLM).
+> - 🇪🇸 **Spanish Documentation**: The original documentation ([`README-Spanish.md`](README-Spanish.md)) was written **manually**.
 >
-> **English Version (Full Translation)**:
-> A complete English translation of the original manual Spanish documentation is available here: [README-English.md](README-English.md).
->
-> **English Version (Engineering Guide and Deep Dive)**:
-> This current document (`README.md`) is a full engineering guide that synthesizes the high-level architecture with the detailed technical procedures from all implementation solutions.
+> **Note**: This document (`README.md`) is a full engineering guide that synthesizes the high-level architecture with the detailed technical procedures from all implementation solutions.
 
 ---
 

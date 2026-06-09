@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-06-09
+
+### Added
+- **AI Usage Transparency**: Added explicit disclosures across all README files regarding the use of AI for documentation generation and enhancement.
+- **Documentation Parity**: Synchronized English and main READMEs with AI-assisted translations and architectural summaries.
+
+### Changed
+- **About Section**: Updated repository description to reflect the hybrid manual/AI documentation approach.
+- **Documentation Hardening**: Clarified that all core codebase and Spanish documentation remain 100% manually authored.
+
 ## [1.0.0] - 2026-05-24
 
 ### Added
