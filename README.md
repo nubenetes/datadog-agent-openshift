@@ -10,6 +10,19 @@
 
 ---
 
+<details>
+<summary>📊 View Architecture and Deployment Infographics (Click to expand)</summary>
+
+### Observability Blueprint
+![Observability Blueprint](images/Datadog_on_OpenShift_Observability_Blueprint_for_Container_Platforms.png)
+
+### Platform Deployment Operations Blueprint
+![Platform Deployment Operations Blueprint](images/Datadog_on_OpenShift_Platform_Deployment_Operations_Blueprint.png)
+
+</details>
+
+---
+
 ## 🤖 AI-Generated Summaries (NotebookLM)
 Get a quick overview of this repository through AI-generated content:
 - 📽️ [**Video Summary (English)**](resources/ai-summaries/Datadog_on_OpenShift_English.mp4): A high-level technical overview of the project.
