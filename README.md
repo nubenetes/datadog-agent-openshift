@@ -59,6 +59,7 @@ Get a quick overview of this repository through AI-generated content:
 - [18. Troubleshooting Decision Tree](#18-troubleshooting-decision-tree)
 - [19. Technical Reference and Source of Truth](#19-technical-reference-and-source-of-truth)
 - [20. Troubleshooting and FAQ](#20-troubleshooting-and-faq)
+- [21. Video Walkthroughs & Architecture References (YouTube)](#21-video-walkthroughs--architecture-references-youtube)
 
 ---
 
@@ -431,3 +432,52 @@ flowchart TD
 
 ### ❓ APM libraries are not being injected?
 Check the `admission.datadoghq.com/config.mode` label. For OpenShift, it **must** be `hostip` due to the restricted SCC environment.
+
+---
+
+## 21. Video Walkthroughs & Architecture References (YouTube)
+
+Architectural deep dives, video walkthroughs, and technical shorts for Datadog on OpenShift 4.x, full-stack observability, and automated canary progressive delivery are hosted on the **[Nubenetes YouTube Channel (@nubenetes)](https://www.youtube.com/@nubenetes)**.
+
+<details open>
+<summary>📂 <strong>Full-Length Technical Deep Dives & Explanations</strong></summary>
+
+<br/>
+
+##### Datadog in GitOps: Full-Stack Observability, CI Visibility & Automated Canary Rollouts
+- 🔗 **Link**: [https://www.youtube.com/watch?v=VQKNKBGRxQM](https://www.youtube.com/watch?v=VQKNKBGRxQM)
+- 🌐 **Language**: English (Original Audio)
+- ⏱️ **Duration**: 7:55
+- 🏷️ **Domain**: Full-Stack Observability, Jenkins CI Visibility & Argo Rollouts SLA Tripwires
+- 📝 **Full Description**:
+> 🚀 Deep dive into using Datadog as the central nervous system for multi-cluster GitOps platforms on OpenShift 4.20+. Covers the DaemonSet architecture (port 8126 APM, port 8125 DogStatsD, JSON logs), Jenkins CI Visibility plugin for build trace correlation and agent queue bottlenecks, runtime Java APM tracing, and metric-driven progressive delivery with automated rollbacks when 5xx errors exceed 0.1% or P99 latency exceeds 250ms.
+
+</details>
+
+<details open>
+<summary>📂 <strong>Architecture Video Shorts & Guides</strong></summary>
+
+<br/>
+
+### 📑 Quick Index Matrix
+
+| # | Short Title | Domain / Pillar | Duration | Direct Link |
+|---|---|---|---|---|
+| 1 | [How Datadog Automates Canary Rollouts](https://www.youtube.com/shorts/RPtczCFl2vU) | Argo Rollouts & APM Tripwire | `1:26` | [▶️ Watch](https://www.youtube.com/shorts/RPtczCFl2vU) |
+| 2 | [How Linux CFS Throttling Freezes Microservices](https://www.youtube.com/shorts/XyKAGxQScVo) | Kernel CPU Bandwidth & Quotas | `1:13` | [▶️ Watch](https://www.youtube.com/shorts/XyKAGxQScVo) |
+
+<br/>
+
+##### 1. How Datadog Automates Canary Rollouts
+- 🔗 **Link**: [https://www.youtube.com/shorts/RPtczCFl2vU](https://www.youtube.com/shorts/RPtczCFl2vU)
+- ⏱️ **Duration**: 1:26
+- 📝 **Full Description**:
+> 🚀 How Argo Rollouts and Datadog APM automate canary validation for critical microservices: routing 20% traffic, evaluating live SLA thresholds (error rate under 0.1%, latency under 250ms), and triggering instant rollbacks if latency degrades.
+
+##### 2. How Linux CFS Throttling Freezes Microservices
+- 🔗 **Link**: [https://www.youtube.com/shorts/XyKAGxQScVo](https://www.youtube.com/shorts/XyKAGxQScVo)
+- ⏱️ **Duration**: 1:13
+- 📝 **Full Description**:
+> 🚀 Explains the Linux CFS Quota throttling trap on multi-threaded containers: why pod-level CPU limits cause kernel freezes and latency spikes despite idle node CPU, and why capacity must be managed at the namespace level.
+
+</details>
