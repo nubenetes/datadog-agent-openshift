@@ -135,16 +135,81 @@ This project implements a multi-tenant, high-availability observability stack us
 ---
 
 ## 2. Quick Navigation Map
+
+This repository is organized into modular solutions, automated manifests, security policies, test workloads, and architecture blueprints. Use the navigation map below to quickly locate the manifests, scripts, or guides required for your deployment pattern.
+
+### 🗺️ Repository Structure Overview
+
 ```text
-./
-├── solution-2-operator/              # ⭐️ Recommended On-Prem Solution
-│   ├── datadog-agent-on-openshift.yaml # Main Agent Custom Resource Definition
-│   ├── scc.yaml                        # Security Context Constraints for eBPF/Host access
-│   └── datadog-operator-olm/           # Operator Lifecycle Manager manifests
-├── solution-1-helm-chart/            # Legacy Helm deployment (Simple manifests)
-├── apm-poc/                          # Java Spring demo app with APM instrumentation
-└── images/                           # Architecture diagrams and UI screenshots
+datadog-agent-openshift/
+├── 📁 solution-2-operator/              # ⭐️ RECOMMENDED: Cloud-native Operator-led deployment (OLM & CRDs)
+│   ├── 📄 datadog-agent-on-openshift.yaml # Main DatadogAgent Custom Resource (v2alpha1)
+│   ├── 📄 scc.yaml                        # Custom SecurityContextConstraints (allowHostPID, privileged)
+│   ├── 📁 datadog-operator-olm/           # Operator Lifecycle Manager (OLM) subscription manifests
+│   │   ├── 📄 datadog-olm.yaml            # OperatorGroup & Subscription for OpenShift OperatorHub
+│   │   └── 📄 operatorhubio-catalog.yaml  # Community OperatorHub CatalogSource definition
+│   ├── 📁 datadog-operator-helm-chart/    # Alternative Helm chart deployment for the Operator
+│   │   └── 📄 values.yaml                 # Helm values for deploying the Datadog Operator
+│   ├── 📁 templates/                      # Advanced CRD configurations
+│   │   └── 📄 datadog-agent-on-openshift2.yaml # Extended DatadogAgent CR with profiling & APM
+│   ├── 📘 README.md                       # Comprehensive Operator installation & hardening guide
+│   └── 📕 README-Spanish.md               # Guía completa de instalación del Operator en español
+│
+├── 📁 solution-1-helm-chart/            # 📦 CLASSIC: Helm v3 Deployment (Standard DaemonSet & Cluster Agent)
+│   ├── 📄 values.yaml                     # Production-ready Helm values for the official Datadog Agent
+│   ├── 📄 values-with-lib-conf.yaml       # Values configured for manual tracing library environment injection
+│   ├── 📄 scc.yaml                        # SecurityContextConstraints tailored for Helm-managed Agents
+│   ├── 📁 templates/                      # Alternative Helm values templates
+│   │   ├── 📄 values-with-lib-inj.yaml    # Values enabling Admission Controller for auto-injection
+│   │   ├── 📄 values-experimental.yaml    # Experimental feature flags & testing configurations
+│   │   └── 📄 values-with-lib-conf.yaml   # Backup configuration template
+│   ├── 📘 README.md                       # Step-by-step Helm chart deployment and upgrade guide
+│   └── 📕 README-Spanish.md               # Guía de despliegue mediante Helm en español
+│
+├── 📁 apm-poc/                          # 🧪 PROOF OF CONCEPT: End-to-end APM & Tracing Validation App
+│   ├── 📁 k8s/                            # Workload deployment manifests for Java Spring Boot demo
+│   │   ├── 📄 depl.yaml                   # Baseline un-instrumented deployment
+│   │   ├── 📄 depl-with-lib-inj.yaml      # Auto-instrumentation via Datadog Mutating Webhook
+│   │   └── 📄 depl-with-lib-conf.yaml     # Manual instrumentation via JAVA_TOOL_OPTIONS env vars
+│   ├── 📜 curl-script.sh                  # Synthetic HTTP traffic generator for generating traces & metrics
+│   ├── 📘 README.md                       # APM validation walkthrough and flame graph verification
+│   └── 📕 README-Spanish.md               # Guía del laboratorio APM en español
+│
+├── 📁 images/                           # 📐 ARCHITECTURE BLUEPRINTS & SCREENSHOTS
+│   ├── 🖼️ Observability_Platform_Engineering_Blueprint.png # Master technical architecture blueprint
+│   ├── 🖼️ Datadog_on_OpenShift_Platform_Deployment_Operations_Blueprint.png # Deployment workflow
+│   ├── 🖼️ Datadog_on_OpenShift_Observability_Blueprint_for_Container_Platforms.png # Container observability
+│   ├── 🖼️ demo-app-apm-poc.png            # APM flame graph and distributed tracing screenshot
+│   ├── 🖼️ demo-app-profiles-poc.png       # Continuous profiling and CPU/memory flame chart
+│   └── 🖼️ datadog-operator-olm-*.png      # OpenShift Web Console OLM subscription screenshots
+│
+└── 📁 resources/ai-summaries/           # 🎓 MULTIMEDIA DEEP DIVES & EXECUTIVE ASSETS
+    ├── 📊 Datadog_OpenShift_Technical_Blueprint.pdf  # Comprehensive architecture deck (PDF)
+    ├── 📊 Datadog_OpenShift_Technical_Blueprint.pptx # Editable engineering presentation (PPTX)
+    ├── 📽️ Datadog_on_OpenShift_English.mp4          # Video masterclass (English narration)
+    └── 📽️ Datadog_Operator_Spanish.mp4             # Video masterclass (Spanish narration)
 ```
+
+### 🧭 Detailed Component Breakdown & Directory Roles
+
+| Directory / Component | Architectural Role | Key Deliverables & Manifests | Recommended When... |
+| :--- | :--- | :--- | :--- |
+| [**`solution-2-operator/`**](solution-2-operator/) | **Enterprise Operator Pattern (Recommended)** | [`datadog-agent-on-openshift.yaml`](solution-2-operator/datadog-agent-on-openshift.yaml)<br/>[`scc.yaml`](solution-2-operator/scc.yaml)<br/>[`datadog-operator-olm/`](solution-2-operator/datadog-operator-olm/) | You want native OpenShift lifecycle management via OLM, declarative CRDs (`DatadogAgent`), automated Agent upgrades, and zero-code Mutating Admission Webhook for APM injection. |
+| [**`solution-1-helm-chart/`**](solution-1-helm-chart/) | **Classic Helm v3 Deployment** | [`values.yaml`](solution-1-helm-chart/values.yaml)<br/>[`scc.yaml`](solution-1-helm-chart/scc.yaml)<br/>[`templates/`](solution-1-helm-chart/templates/) | You are constrained to traditional CI/CD Helm pipelines, manage deployments across heterogeneous Kubernetes clusters, or require simple manual manifest workflows without CRD controllers. |
+| [**`apm-poc/`**](apm-poc/) | **APM & Tracing Proof of Concept** | [`k8s/depl-with-lib-inj.yaml`](apm-poc/k8s/depl-with-lib-inj.yaml)<br/>[`curl-script.sh`](apm-poc/curl-script.sh)<br/>[`README.md`](apm-poc/README.md) | You need to test, demo, or validate Datadog APM tracing, library auto-injection, distributed context propagation, and continuous profiling on OpenShift workloads before rolling out to production. |
+| [**`images/`**](images/) | **Technical Architecture Diagrams** | [`Observability_Platform_Engineering_Blueprint.png`](images/Observability_Platform_Engineering_Blueprint.png)<br/>Blueprints & UI verification captures | You need high-resolution visual references of control plane proxying, eBPF socket filtering, APM mutation flows, or OpenShift Web Console verification steps for design reviews. |
+| [**`resources/ai-summaries/`**](resources/ai-summaries/) | **Executive Presentations & Video Masterclasses** | Technical PDF/PPTX Decks<br/>MP4 Video Summaries | You need ready-to-present executive slides, architectural slide decks for stakeholders, or multimedia walkthroughs explaining the Datadog on OpenShift implementation. |
+
+### 🚀 Fast-Track Decision Guide: "Which Path Should I Choose?"
+
+- 🟢 **"I want the standard production deployment for OpenShift 4.x"**  
+  $\rightarrow$ Head straight to [**`solution-2-operator/`**](solution-2-operator/). Deploy the Datadog Operator via OLM (`datadog-operator-olm/datadog-olm.yaml`), apply the custom SCC (`scc.yaml`), and instantiate the `DatadogAgent` CR.
+- 🟡 **"I already use Helm for all cluster deployments and don't want OLM operators"**  
+  $\rightarrow$ Navigate to [**`solution-1-helm-chart/`**](solution-1-helm-chart/). Review `values.yaml`, grant the custom SCC, and deploy using `helm upgrade --install datadog-agent datadog/datadog -f values.yaml`.
+- 🟣 **"I need to verify automatic tracing injection on an application"**  
+  $\rightarrow$ Explore [**`apm-poc/`**](apm-poc/). Deploy the sample Spring Boot app with `k8s/depl-with-lib-inj.yaml`, trigger traffic with `curl-script.sh`, and verify flame graphs in the Datadog APM dashboard.
+- 🔵 **"I need architecture diagrams for security reviews or internal presentations"**  
+  $\rightarrow$ Review the [**Technical Infographics**](#-datadog-on-openshift-4x-the-engineering-blueprint) above or open the high-res diagrams in [**`images/`**](images/) and slides in [**`resources/ai-summaries/`**](resources/ai-summaries/).
 
 ---
 
