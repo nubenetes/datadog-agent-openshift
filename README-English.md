@@ -18,16 +18,14 @@ This repository includes a multi-format educational series synthesized with **Ge
 
 ### 🎬 Full-Length Technical Deep Dives (Videos & Podcasts)
 
-| # | Format | Video Title | Category / Domain | Language | Duration | Focus & Key Insights |
+| # | Format | Video / Podcast Title | Category / Domain | Language | Duration | Focus & Key Insights |
 |---|:---:|---|---|:---:|:---:|---|
-| 1 | 📽️ Video | [**Datadog on OpenShift (Technical Summary)**](https://www.youtube.com/watch?v=uE4qFDB4oe4) | Architecture & Fundamentals | 🇪🇸 ES *(CC 20+)* | 8:00 | OCP 4.x architecture requirements, Node Agent DaemonSet, Cluster Agent, and custom Security Context Constraints (SCC). |
-| 2 | 📽️ Video | [**Datadog on OpenShift 2**](https://www.youtube.com/watch?v=psCcEi61Zmg) | APM & Advanced Observability | 🇪🇸 ES *(CC 20+)* | 8:39 | Single-step APM auto-instrumentation via Admission Controller (`hostip` mode), distributed tracing, and live process inspection. |
-| 3 | 🎙️ **Podcast** | [**Podcast: Evita la bancarrota en Datadog por logs en OpenShift**](https://www.youtube.com/watch?v=EXC-9h8_iP0) | FinOps & Cost Control | 🇪🇸 ES *(CC)* | 21:05 | Prácticas esenciales de FinOps: filtrado de logs en Worker Nodes (`containerExclude`), exclusión de namespaces ruidosos (`openshift-*`) y Observability Pipelines. |
+| 1 | 📽️ Video Guide | [**Datadog on OpenShift (Part 1)**](https://www.youtube.com/watch?v=uE4qFDB4oe4) | Architecture & Core Fundamentals | 🇺🇸 EN *(CC 20+)* | 8:00 | OCP 4.x architecture requirements, Node Agent DaemonSet, Cluster Agent, and custom Security Context Constraints (SCC). |
+| 2 | 📽️ Video Guide | [**Datadog on OpenShift 2 (Part 2)**](https://www.youtube.com/watch?v=psCcEi61Zmg) | APM & Advanced Instrumentation | 🇺🇸 EN *(CC 20+)* | 8:39 | Single-step APM auto-instrumentation via Admission Controller (`hostip` mode), distributed tracing, and live process inspection. |
+| 3 | 🎙️ **Podcast** | [**Podcast: Evita la bancarrota en Datadog por logs en OpenShift**](https://www.youtube.com/watch?v=EXC-9h8_iP0) | FinOps & Cost Control | 🇪🇸 ES *(CC)* | 21:05 | FinOps masterclass (Spanish audio): Worker node log filtering (`containerExclude`), system namespace exclusion (`openshift-*`), and Observability Pipelines. |
 | 4 | 🎙️ **Podcast** | [**Podcast: Scaling Datadog on OpenShift with Operators**](https://www.youtube.com/watch?v=gRCZkp8u8eY) | Platform Engineering & Scaling | 🇺🇸 EN *(CC 20+)* | 47:43 | Enterprise masterclass comparing Helm vs Operator, OLM installation, `DatadogAgent` CRD reconciliation loop, and autoscaling. |
-| 5 | 📽️ Video | [**Datadog on OpenShift 3 (Part 3)**](https://www.youtube.com/watch?v=67Fg9wcdwGo) | Metrics, Logs & Day-2 Ops | 🇺🇸 EN *(CC 20+)* | 9:10 | Day-2 operations: container log autodiscovery, control plane monitoring (API Server, Controller Manager, Scheduler), and kube-state-metrics. |
-| 6 | 📽️ Video | [**Datadog in GitOps: CI Visibility & Canary Rollouts**](https://www.youtube.com/watch?v=VQKNKBGRxQM) | GitOps & Progressive Delivery | 🇺🇸 EN *(CC)* | 7:55 | Full-stack GitOps observability, Jenkins CI Visibility plugin, distributed Java tracing, and automated canary rollbacks via Argo Rollouts. |
-
-
+| 5 | 📽️ Video Guide | [**Datadog on OpenShift 3 (Part 3)**](https://www.youtube.com/watch?v=67Fg9wcdwGo) | Metrics, Logs & Day-2 Ops | 🇺🇸 EN *(CC 20+)* | 9:10 | Day-2 operations: container log autodiscovery, control plane monitoring (API Server, Controller Manager, Scheduler), and kube-state-metrics. |
+| 6 | 📽️ Video Guide | [**Datadog in GitOps: CI Visibility & Canary Rollouts**](https://www.youtube.com/watch?v=VQKNKBGRxQM) | GitOps & Progressive Delivery | 🇺🇸 EN *(CC)* | 7:55 | Full-stack GitOps observability, Jenkins CI Visibility plugin, distributed Java tracing, and automated canary rollbacks via Argo Rollouts. |
 
 ### ⚡ Technical Shorts (Categorized by Domain)
 
@@ -43,6 +41,10 @@ This repository includes a multi-format educational series synthesized with **Ge
 - 🇺🇸 [**How Datadog Auto Instruments OpenShift Apps**](https://www.youtube.com/shorts/rhqJi-mROqE) `(1:12)` — Zero-code APM: Mutating webhooks injecting Java, Python, and Node.js agents. *(Subtitles in 20+ languages)*
 - 🇪🇸 [**Cómo Datadog inyecta librerías en OpenShift**](https://www.youtube.com/shorts/edros1m5Aoo) `(1:10)` — Inyección transparente de librerías APM sin modificar Dockerfiles ni código fuente. *(Subtítulos multilingües)*
 - 🇺🇸 [**How Datadog Automates Log Correlation**](https://www.youtube.com/shorts/ZhVywUCThv4) `(1:13)` — Unified Service Tagging linking container logs directly to distributed APM traces. *(Subtitles in 20+ languages)*
+
+#### 🚀 Continuous Delivery & Performance
+- 🇺🇸 [**How Datadog Automates Canary Rollouts**](https://www.youtube.com/shorts/RPtczCFl2vU) `(1:26)` — Automated canary rollouts and instant rollbacks with Argo Rollouts and Datadog APM metrics. *(English)*
+- 🇺🇸 [**How Linux CFS Throttling Freezes Microservices**](https://www.youtube.com/shorts/XyKAGxQScVo) `(1:13)` — Understanding CFS quota throttling and latency spikes on Kubernetes/OpenShift. *(English)*
 
 ### 📁 Offline Engineering Artifacts
 - 📽️ [**Video Summary (English MP4)**](resources/ai-summaries/Datadog_on_OpenShift_English.mp4): A high-level technical overview of the project.

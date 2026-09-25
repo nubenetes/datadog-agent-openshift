@@ -19,14 +19,12 @@ Este repositorio cuenta con una serie educativa y técnica multiformato generada
 
 | # | Formato | Título del Recurso | Categoría | Idioma Origen | Duración | Enlace Directo |
 |---|:---:|---|---|:---:|:---:|---|
-| 1 | 📽️ Vídeo | [**Datadog on OpenShift (Resumen Técnico)**](https://www.youtube.com/watch?v=uE4qFDB4oe4) | Arquitectura y Fundamentos | 🇪🇸 Español *(CC 20+)* | `8:00` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=uE4qFDB4oe4) |
-| 2 | 📽️ Vídeo | [**Datadog on OpenShift 2**](https://www.youtube.com/watch?v=psCcEi61Zmg) | APM e Instrumentación | 🇪🇸 Español *(CC 20+)* | `8:39` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=psCcEi61Zmg) |
+| 1 | 📽️ Guía Vídeo | [**Datadog on OpenShift (Parte 1)**](https://www.youtube.com/watch?v=uE4qFDB4oe4) | Arquitectura y Fundamentos | 🇺🇸 Inglés *(CC 20+)* | `8:00` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=uE4qFDB4oe4) |
+| 2 | 📽️ Guía Vídeo | [**Datadog on OpenShift 2 (Parte 2)**](https://www.youtube.com/watch?v=psCcEi61Zmg) | APM e Instrumentación | 🇺🇸 Inglés *(CC 20+)* | `8:39` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=psCcEi61Zmg) |
 | 3 | 🎙️ **Podcast** | [**Podcast: Evita la bancarrota en Datadog por logs en OpenShift**](https://www.youtube.com/watch?v=EXC-9h8_iP0) | FinOps y Control de Costes | 🇪🇸 Español *(CC)* | `21:05` | [▶️ Escuchar Podcast](https://www.youtube.com/watch?v=EXC-9h8_iP0) |
 | 4 | 🎙️ **Podcast** | [**Podcast: Scaling Datadog on OpenShift with Operators**](https://www.youtube.com/watch?v=gRCZkp8u8eY) | Platform Engineering y Escalado | 🇺🇸 Inglés *(CC 20+)* | `47:43` | [▶️ Escuchar Podcast](https://www.youtube.com/watch?v=gRCZkp8u8eY) |
-| 5 | 📽️ Vídeo | [**Datadog on OpenShift 3 (Part 3)**](https://www.youtube.com/watch?v=67Fg9wcdwGo) | Métricas, Logs y Day-2 Ops | 🇺🇸 Inglés *(CC 20+)* | `9:10` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=67Fg9wcdwGo) |
-| 6 | 📽️ Vídeo | [**Datadog en GitOps: Visibilidad CI y Canary Rollouts**](https://www.youtube.com/watch?v=VQKNKBGRxQM) | GitOps y Progressive Delivery | 🇺🇸 Inglés *(CC)* | `7:55` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=VQKNKBGRxQM) |
-
-
+| 5 | 📽️ Guía Vídeo | [**Datadog on OpenShift 3 (Part 3)**](https://www.youtube.com/watch?v=67Fg9wcdwGo) | Métricas, Logs y Day-2 Ops | 🇺🇸 Inglés *(CC 20+)* | `9:10` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=67Fg9wcdwGo) |
+| 6 | 📽️ Guía Vídeo | [**Datadog en GitOps: Visibilidad CI y Canary Rollouts**](https://www.youtube.com/watch?v=VQKNKBGRxQM) | GitOps y Progressive Delivery | 🇺🇸 Inglés *(CC)* | `7:55` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=VQKNKBGRxQM) |
 
 ### ⚡ Shorts Técnicos (Categorizados por Dominio)
 
@@ -42,6 +40,10 @@ Este repositorio cuenta con una serie educativa y técnica multiformato generada
 - 🇪🇸 [**Cómo Datadog inyecta librerías en OpenShift**](https://www.youtube.com/shorts/edros1m5Aoo) `(1:10)` — Inyección transparente de librerías APM sin modificar Dockerfiles ni código fuente. *(Subtítulos multilingües)*
 - 🇺🇸 [**How Datadog Auto Instruments OpenShift Apps**](https://www.youtube.com/shorts/rhqJi-mROqE) `(1:12)` — Zero-code APM: Webhooks mutantes inyectando agentes Java, Python y Node.js. *(Subtítulos en 20+ idiomas)*
 - 🇺🇸 [**How Datadog Automates Log Correlation**](https://www.youtube.com/shorts/ZhVywUCThv4) `(1:13)` — Unified Service Tagging vinculando logs de contenedores directamente a trazas distribuidas APM. *(Subtítulos en 20+ idiomas)*
+
+#### 🚀 Entrega Continua y Rendimiento
+- 🇺🇸 [**How Datadog Automates Canary Rollouts**](https://www.youtube.com/shorts/RPtczCFl2vU) `(1:26)` — Despliegues canary automatizados con Argo Rollouts y métricas de Datadog APM. *(Inglés)*
+- 🇺🇸 [**How Linux CFS Throttling Freezes Microservices**](https://www.youtube.com/shorts/XyKAGxQScVo) `(1:13)` — Comprensión del throttling por cuotas CFS en Linux y picos de latencia en Kubernetes/OpenShift. *(Inglés)*
 
 ### 📁 Recursos Locales y Documentación Offline
 - 📽️ [**Video Resumen (Español MP4)**](resources/ai-summaries/Datadog_Operator_Spanish.mp4): Resumen técnico sobre el uso del Datadog Operator en OpenShift.
