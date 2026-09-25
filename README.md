@@ -31,15 +31,16 @@ This repository includes a comprehensive multi-format educational series synthes
 > **Multilingual Learning Experience**:
 > Content features native spoken audio in **English 🇺🇸** or **Spanish 🇪🇸**, and includes automated YouTube subtitles / closed captions (CC) translated into **20+ languages** (French, German, Japanese, Portuguese, Italian, Arabic, Hindi, etc.) for global knowledge sharing.
 
-### 🎬 Full-Length Technical Deep Dives (Videos)
+### 🎬 Full-Length Technical Deep Dives (Videos & Podcasts)
 
-| # | Video Title | Category / Domain | Origin Language | Duration | Direct YouTube Link |
-|---|---|---|:---:|:---:|---|
-| 1 | [**Datadog on OpenShift (Part 1)**](https://www.youtube.com/watch?v=uE4qFDB4oe4) | Architecture & Fundamentals | 🇺🇸 English *(CC 20+)* | `8:00` | [▶️ Watch Video](https://www.youtube.com/watch?v=uE4qFDB4oe4) |
-| 2 | [**Datadog on OpenShift 2 (Part 2)**](https://www.youtube.com/watch?v=psCcEi61Zmg) | APM & Auto-Instrumentation | 🇺🇸 English *(CC 20+)* | `8:39` | [▶️ Watch Video](https://www.youtube.com/watch?v=psCcEi61Zmg) |
-| 3 | [**Datadog on OpenShift 3 (Part 3)**](https://www.youtube.com/watch?v=67Fg9wcdwGo) | Metrics, Logs & Day-2 Ops | 🇺🇸 English *(CC 20+)* | `9:10` | [▶️ Watch Video](https://www.youtube.com/watch?v=67Fg9wcdwGo) |
-| 4 | [**Evita la bancarrota por logs en OpenShift**](https://www.youtube.com/watch?v=EXC-9h8_iP0) | FinOps & Cost Optimization | 🇪🇸 Español *(CC)* | `21:05` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=EXC-9h8_iP0) |
-| 5 | [**Scaling Datadog on OpenShift with Operators**](https://www.youtube.com/watch?v=gRCZkp8u8eY) | Platform Engineering & Scaling | 🇺🇸 English *(CC 20+)* | `47:43` | [▶️ Watch Video](https://www.youtube.com/watch?v=gRCZkp8u8eY) |
+| # | Format | Video Title | Category / Domain | Origin Language | Duration | Direct YouTube Link |
+|---|:---:|---|---|:---:|:---:|---|
+| 1 | 📽️ Video | [**Datadog on OpenShift (Resumen Técnico)**](https://www.youtube.com/watch?v=uE4qFDB4oe4) | Arquitectura y Fundamentos | 🇪🇸 Español *(CC 20+)* | `8:00` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=uE4qFDB4oe4) |
+| 2 | 📽️ Video | [**Datadog on OpenShift 2**](https://www.youtube.com/watch?v=psCcEi61Zmg) | APM e Instrumentación | 🇪🇸 Español *(CC 20+)* | `8:39` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=psCcEi61Zmg) |
+| 3 | 🎙️ **Podcast** | [**Podcast: Evita la bancarrota en Datadog por logs en OpenShift**](https://www.youtube.com/watch?v=EXC-9h8_iP0) | FinOps & Cost Optimization | 🇪🇸 Español *(CC)* | `21:05` | [▶️ Escuchar Podcast](https://www.youtube.com/watch?v=EXC-9h8_iP0) |
+| 4 | 🎙️ **Podcast** | [**Podcast: Scaling Datadog on OpenShift with Operators**](https://www.youtube.com/watch?v=gRCZkp8u8eY) | Platform Engineering & Scaling | 🇺🇸 English *(CC 20+)* | `47:43` | [▶️ Listen to Podcast](https://www.youtube.com/watch?v=gRCZkp8u8eY) |
+| 5 | 📽️ Video | [**Datadog on OpenShift 3 (Part 3)**](https://www.youtube.com/watch?v=67Fg9wcdwGo) | Metrics, Logs & Day-2 Ops | 🇺🇸 English *(CC 20+)* | `9:10` | [▶️ Watch Video](https://www.youtube.com/watch?v=67Fg9wcdwGo) |
+
 
 ### ⚡ Topic-Focused Technical Shorts
 
@@ -485,59 +486,65 @@ To get the most out of this repository, we recommend following this learning seq
 
 ---
 
-### 🎬 Full-Length Technical Deep Dives & Masterclasses
+### 🎬 Full-Length Technical Deep Dives & Masterclasses (Videos & Podcasts)
 
-| # | Video Title | Category / Domain | Origin Language | Duration | Direct Link |
-|---|---|---|:---:|:---:|---|
-| 1 | [Datadog on OpenShift (Part 1)](https://www.youtube.com/watch?v=uE4qFDB4oe4) | Architecture & Fundamentals | 🇺🇸 English *(CC 20+)* | `8:00` | [▶️ Watch](https://www.youtube.com/watch?v=uE4qFDB4oe4) |
-| 2 | [Datadog on OpenShift 2 (Part 2)](https://www.youtube.com/watch?v=psCcEi61Zmg) | APM & Advanced Observability | 🇺🇸 English *(CC 20+)* | `8:39` | [▶️ Watch](https://www.youtube.com/watch?v=psCcEi61Zmg) |
-| 3 | [Datadog on OpenShift 3 (Part 3)](https://www.youtube.com/watch?v=67Fg9wcdwGo) | Metrics, Logs & Day-2 Ops | 🇺🇸 English *(CC 20+)* | `9:10` | [▶️ Watch](https://www.youtube.com/watch?v=67Fg9wcdwGo) |
-| 4 | [Evita la bancarrota por logs en OpenShift](https://www.youtube.com/watch?v=EXC-9h8_iP0) | FinOps & Cost Control | 🇪🇸 Español *(CC)* | `21:05` | [▶️ Watch](https://www.youtube.com/watch?v=EXC-9h8_iP0) |
-| 5 | [Scaling Datadog on OpenShift with Operators](https://www.youtube.com/watch?v=gRCZkp8u8eY) | Platform Engineering & Scaling | 🇺🇸 English *(CC 20+)* | `47:43` | [▶️ Watch](https://www.youtube.com/watch?v=gRCZkp8u8eY) |
-| 6 | [Datadog in GitOps: CI Visibility & Canary Rollouts](https://www.youtube.com/watch?v=VQKNKBGRxQM) | GitOps & Progressive Delivery | 🇺🇸 English *(CC)* | `7:55` | [▶️ Watch](https://www.youtube.com/watch?v=VQKNKBGRxQM) |
+| # | Format | Video / Podcast Title | Category / Domain | Origin Language | Duration | Direct Link |
+|---|:---:|---|---|:---:|:---:|---|
+| 1 | 📽️ Video | [**Datadog on OpenShift (Resumen Técnico)**](https://www.youtube.com/watch?v=uE4qFDB4oe4) | Arquitectura y Fundamentos | 🇪🇸 Español *(CC 20+)* | `8:00` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=uE4qFDB4oe4) |
+| 2 | 📽️ Video | [**Datadog on OpenShift 2**](https://www.youtube.com/watch?v=psCcEi61Zmg) | APM e Instrumentación | 🇪🇸 Español *(CC 20+)* | `8:39` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=psCcEi61Zmg) |
+| 3 | 🎙️ **Podcast** | [**Podcast: Evita la bancarrota en Datadog por logs en OpenShift**](https://www.youtube.com/watch?v=EXC-9h8_iP0) | FinOps & Cost Control | 🇪🇸 Español *(CC)* | `21:05` | [▶️ Escuchar Podcast](https://www.youtube.com/watch?v=EXC-9h8_iP0) |
+| 4 | 🎙️ **Podcast** | [**Podcast: Scaling Datadog on OpenShift with Operators**](https://www.youtube.com/watch?v=gRCZkp8u8eY) | Platform Engineering & Scaling | 🇺🇸 English *(CC 20+)* | `47:43` | [▶️ Listen to Podcast](https://www.youtube.com/watch?v=gRCZkp8u8eY) |
+| 5 | 📽️ Video | [**Datadog on OpenShift 3 (Part 3)**](https://www.youtube.com/watch?v=67Fg9wcdwGo) | Metrics, Logs & Day-2 Ops | 🇺🇸 English *(CC 20+)* | `9:10` | [▶️ Watch Video](https://www.youtube.com/watch?v=67Fg9wcdwGo) |
+| 6 | 📽️ Video | [**Datadog in GitOps: CI Visibility & Canary Rollouts**](https://www.youtube.com/watch?v=VQKNKBGRxQM) | GitOps & Progressive Delivery | 🇺🇸 English *(CC)* | `7:55` | [▶️ Watch Video](https://www.youtube.com/watch?v=VQKNKBGRxQM) |
 
 <details open>
-<summary>🔍 <strong>Detailed Breakdown: Full-Length Sessions</strong></summary>
+<summary>🔍 <strong>Detailed Breakdown: Full-Length Sessions & Podcasts</strong></summary>
 
 <br/>
 
-##### 1. Datadog on OpenShift (Part 1)
+##### 1. Datadog on OpenShift (Resumen Técnico)
 - 🔗 **Link**: [https://www.youtube.com/watch?v=uE4qFDB4oe4](https://www.youtube.com/watch?v=uE4qFDB4oe4)
-- 🏷️ **Category**: Architecture & Core Platform
-- 🌐 **Origin Language**: English (Subtitles/CC in 20+ languages)
+- 🎙️ **Format**: 📽️ Technical Video Guide
+- 🏷️ **Category**: Arquitectura y Fundamentos
+- 🌐 **Origin Language**: Español (Subtítulos en 20+ idiomas)
 - ⏱️ **Duration**: 8:00
-- 📝 **Description**: High-level technical overview of deploying and operating Datadog on Red Hat OpenShift (OCP 4.x). Explores the Node Agent DaemonSet, Cluster Agent, custom Security Context Constraints (SCC) required for host access and eBPF, and Unified Service Tagging for metrics and logs.
+- 📝 **Description**: Resumen técnico de alto nivel sobre el despliegue y operación de Datadog en Red Hat OpenShift (OCP 4.x). Explora el Node Agent DaemonSet, Cluster Agent, Security Context Constraints (SCC) requeridos para acceso host y eBPF, y Unified Service Tagging para métricas y logs.
 
-##### 2. Datadog on OpenShift 2 (Part 2)
+##### 2. Datadog on OpenShift 2
 - 🔗 **Link**: [https://www.youtube.com/watch?v=psCcEi61Zmg](https://www.youtube.com/watch?v=psCcEi61Zmg)
-- 🏷️ **Category**: APM & Advanced Observability
-- 🌐 **Origin Language**: English (Subtitles/CC in 20+ languages)
+- 🎙️ **Format**: 📽️ Technical Video Guide
+- 🏷️ **Category**: APM e Instrumentación Avanzada
+- 🌐 **Origin Language**: Español (Subtítulos en 20+ idiomas)
 - ⏱️ **Duration**: 8:39
-- 📝 **Description**: Deep dive into Application Performance Monitoring (APM) on OpenShift. Covers single-step auto-instrumentation using the Datadog Admission Controller (`hostip` mode), distributed tracing correlation with container logs, live process monitoring, and common troubleshooting patterns.
+- 📝 **Description**: Inmersión técnica en Application Performance Monitoring (APM) en OpenShift. Aborda la auto-instrumentación en un solo paso mediante el Datadog Admission Controller (modo `hostip`), correlación de trazas distribuidas con logs de contenedores, monitorización de procesos en vivo y resolución de incidencias comunes.
 
-##### 3. Datadog on OpenShift 3 (Part 3)
+##### 3. Podcast: Evita la bancarrota en Datadog por logs en OpenShift
+- 🔗 **Link**: [https://www.youtube.com/watch?v=EXC-9h8_iP0](https://www.youtube.com/watch?v=EXC-9h8_iP0)
+- 🎙️ **Format**: 🎙️ Deep Dive Podcast (Conversación dinámica NotebookLM)
+- 🏷️ **Category**: FinOps & Cost Control
+- 🌐 **Origin Language**: Español (Subtítulos multilingües)
+- ⏱️ **Duration**: 21:05
+- 📝 **Description**: Episodio en formato podcast analizando exhaustivamente FinOps para evitar facturas descontroladas en Datadog por el volumen masivo de logs en OpenShift. Aprende a aplicar filtrado en origen en Worker Nodes (`containerExclude`), excluir namespaces ruidosos (`openshift-*`, `kube-system`), entender la diferencia entre Ingested e Indexed logs, y usar Observability Pipelines para recortar costes antes de la nube.
+
+##### 4. Podcast: Scaling Datadog on OpenShift with Operators
+- 🔗 **Link**: [https://www.youtube.com/watch?v=gRCZkp8u8eY](https://www.youtube.com/watch?v=gRCZkp8u8eY)
+- 🎙️ **Format**: 🎙️ Deep Dive Podcast (Conversational NotebookLM Masterclass)
+- 🏷️ **Category**: Platform Engineering & Scaling
+- 🌐 **Origin Language**: English (Subtitles/CC in 20+ languages)
+- ⏱️ **Duration**: 47:43
+- 📝 **Description**: Full podcast masterclass on deploying and scaling Datadog across enterprise OpenShift clusters. Compares Helm vs. Operator approaches, demonstrates installation via Operator Lifecycle Manager (OLM), breaks down the `DatadogAgent` CRD (`v2alpha1`) reconciliation loop, and details autoscaling with the Datadog Cluster Agent and External Metrics Provider.
+
+##### 5. Datadog on OpenShift 3 (Part 3)
 - 🔗 **Link**: [https://www.youtube.com/watch?v=67Fg9wcdwGo](https://www.youtube.com/watch?v=67Fg9wcdwGo)
+- 🎙️ **Format**: 📽️ Technical Video Guide
 - 🏷️ **Category**: Metrics, Logs & Day-2 Operations
 - 🌐 **Origin Language**: English (Subtitles/CC in 20+ languages)
 - ⏱️ **Duration**: 9:10
 - 📝 **Description**: Advanced Day-2 platform observability guide. Covers container log autodiscovery and multiline log processing, Kubernetes control plane telemetry (API Server, Controller Manager, Scheduler) with secure ports and certificates, JMX metrics extraction, and kube-state-metrics integration.
 
-##### 4. Evita la bancarrota por logs en OpenShift
-- 🔗 **Link**: [https://www.youtube.com/watch?v=EXC-9h8_iP0](https://www.youtube.com/watch?v=EXC-9h8_iP0)
-- 🏷️ **Category**: FinOps & Cost Control
-- 🌐 **Origin Language**: Spanish (Subtitles/CC with auto-translation)
-- ⏱️ **Duration**: 21:05
-- 📝 **Description**: Análisis exhaustivo de FinOps para evitar facturas descontroladas en Datadog por el volumen masivo de logs en OpenShift. Aprende a aplicar filtrado en origen en Worker Nodes (`containerExclude`), excluir namespaces ruidosos (`openshift-*`, `kube-system`), entender la diferencia entre Ingested e Indexed logs, y usar Observability Pipelines para recortar costes antes de la nube.
-
-##### 5. Scaling Datadog on OpenShift with Operators
-- 🔗 **Link**: [https://www.youtube.com/watch?v=gRCZkp8u8eY](https://www.youtube.com/watch?v=gRCZkp8u8eY)
-- 🏷️ **Category**: Platform Engineering & Scaling Masterclass
-- 🌐 **Origin Language**: English (Subtitles/CC in 20+ languages)
-- ⏱️ **Duration**: 47:43
-- 📝 **Description**: Architectural masterclass on deploying and scaling Datadog across enterprise OpenShift clusters. Compares Helm vs. Operator approaches, demonstrates installation via Operator Lifecycle Manager (OLM), breaks down the `DatadogAgent` CRD (`v2alpha1`) reconciliation loop, and details autoscaling with the Datadog Cluster Agent and External Metrics Provider.
-
 ##### 6. Datadog in GitOps: CI Visibility & Canary Rollouts
 - 🔗 **Link**: [https://www.youtube.com/watch?v=VQKNKBGRxQM](https://www.youtube.com/watch?v=VQKNKBGRxQM)
+- 🎙️ **Format**: 📽️ Technical Video Guide
 - 🏷️ **Category**: GitOps & Progressive Delivery
 - 🌐 **Origin Language**: English
 - ⏱️ **Duration**: 7:55
