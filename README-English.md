@@ -8,10 +8,43 @@
 
 ---
 
-## 🤖 AI-Generated Summaries (NotebookLM)
-Get a quick overview of this repository through AI-generated content:
-- 📽️ [**Video Summary (English)**](resources/ai-summaries/Datadog_on_OpenShift_English.mp4): A high-level technical overview of the project.
-- 📽️ [**Video Resumen (Spanish)**](resources/ai-summaries/Datadog_Operator_Spanish.mp4): Technical summary about using the Datadog Operator on OpenShift.
+## 🤖 AI-Generated Multimedia & Video Series (NotebookLM & YouTube)
+
+This repository includes a multi-format educational series synthesized with **Gemini NotebookLM** based on this technical documentation, hosted on YouTube at [**@nubenetes**](https://youtube.com/@nubenetes):
+
+> [!NOTE]
+> **Multilingual Learning Experience**:
+> Content is delivered in native **English 🇺🇸** and **Spanish 🇪🇸**, and includes YouTube closed captions (CC) automatically translated into **20+ languages** (French, German, Japanese, Portuguese, Italian, Arabic, Hindi, etc.) for worldwide knowledge sharing.
+
+### 🎬 Full-Length Technical Deep Dives
+
+| Video | Category | Language | Duration | Focus & Key Insights |
+| :--- | :--- | :---: | :---: | :--- |
+| [**Datadog on OpenShift (Part 1)**](https://www.youtube.com/watch?v=uE4qFDB4oe4) | Architecture & Fundamentals | 🇺🇸 EN *(CC 20+)* | 8:00 | OCP 4.x architecture requirements, Node Agent DaemonSet, Cluster Agent, and custom Security Context Constraints (SCC). |
+| [**Datadog on OpenShift 2 (Part 2)**](https://www.youtube.com/watch?v=psCcEi61Zmg) | APM & Advanced Observability | 🇺🇸 EN *(CC 20+)* | 8:39 | Single-step APM auto-instrumentation via Admission Controller (`hostip` mode), distributed tracing, and live process inspection. |
+| [**Datadog on OpenShift 3 (Part 3)**](https://www.youtube.com/watch?v=67Fg9wcdwGo) | Metrics, Logs & Day-2 Ops | 🇺🇸 EN *(CC 20+)* | 9:10 | Day-2 operations: container log autodiscovery, control plane monitoring (API Server, Controller Manager, Scheduler), and kube-state-metrics. |
+| [**Evita la bancarrota por logs en OpenShift**](https://www.youtube.com/watch?v=EXC-9h8_iP0) | FinOps & Cost Control | 🇪🇸 ES *(CC)* | 21:05 | Prácticas esenciales de FinOps: filtrado de logs en Worker Nodes (`containerExclude`), exclusión de namespaces ruidosos (`openshift-*`) y Observability Pipelines. |
+| [**Scaling Datadog on OpenShift with Operators**](https://www.youtube.com/watch?v=gRCZkp8u8eY) | Platform Engineering & Scaling | 🇺🇸 EN *(CC 20+)* | 47:43 | Enterprise masterclass comparing Helm vs Operator, OLM installation, `DatadogAgent` CRD reconciliation loop, and autoscaling. |
+
+
+### ⚡ Technical Shorts (Categorized by Domain)
+
+#### 🏛️ Architecture & Operators
+- 🇺🇸 [**Inside the Datadog Operator Architecture**](https://www.youtube.com/shorts/5dY7Cw-fEjc) `(1:21)` — Reconciling CRDs, DaemonSets, and Cluster Agent on OpenShift. *(Subtitles in 20+ languages)*
+- 🇪🇸 [**Cómo dominar Datadog en OpenShift**](https://www.youtube.com/shorts/L8RF5shI_v4) `(1:15)` — Las 3 claves: Operator vs Helm, SCC para eBPF y gobierno de etiquetas. *(Subtítulos multilingües)*
+
+#### 💰 FinOps & Cost Control
+- 🇺🇸 [**How Node Level Filtering Cuts Datadog Costs**](https://www.youtube.com/shorts/tkRsD0KrjkI) `(1:17)` — Dropping noisy system logs in Worker Nodes using `containerExclude` before cloud egress. *(Subtitles in 20+ languages)*
+- 🇪🇸 [**Cómo reducir costes en Datadog**](https://www.youtube.com/shorts/RmZzaj9eT8U) `(1:05)` — FinOps en OpenShift: cómo evitar el sobrecoste filtrando contenedores y namespaces en origen. *(Subtítulos multilingües)*
+
+#### 🔍 APM, Tracing & Log Correlation
+- 🇺🇸 [**How Datadog Auto Instruments OpenShift Apps**](https://www.youtube.com/shorts/rhqJi-mROqE) `(1:12)` — Zero-code APM: Mutating webhooks injecting Java, Python, and Node.js agents. *(Subtitles in 20+ languages)*
+- 🇪🇸 [**Cómo Datadog inyecta librerías en OpenShift**](https://www.youtube.com/shorts/edros1m5Aoo) `(1:10)` — Inyección transparente de librerías APM sin modificar Dockerfiles ni código fuente. *(Subtítulos multilingües)*
+- 🇺🇸 [**How Datadog Automates Log Correlation**](https://www.youtube.com/shorts/ZhVywUCThv4) `(1:13)` — Unified Service Tagging linking container logs directly to distributed APM traces. *(Subtitles in 20+ languages)*
+
+### 📁 Offline Engineering Artifacts
+- 📽️ [**Video Summary (English MP4)**](resources/ai-summaries/Datadog_on_OpenShift_English.mp4): A high-level technical overview of the project.
+- 📽️ [**Video Resumen (Spanish MP4)**](resources/ai-summaries/Datadog_Operator_Spanish.mp4): Technical summary about using the Datadog Operator on OpenShift.
 - 📊 [**Technical Presentation (PDF)**](resources/ai-summaries/Datadog_OpenShift_Technical_Blueprint.pdf): Detailed blueprint and architectural overview.
 - 📊 [**Technical Presentation (PPTX)**](resources/ai-summaries/Datadog_OpenShift_Technical_Blueprint.pptx): Editable PowerPoint version of the technical blueprint.
 
