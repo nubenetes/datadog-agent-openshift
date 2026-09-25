@@ -10,8 +10,40 @@
 
 ---
 
-<details>
-<summary>📊 View Architecture and Deployment Infographics (Click to expand)</summary>
+<details open>
+<summary>📊 <strong>View Architecture and Deployment Infographics (Click to expand / collapse)</strong></summary>
+
+### 📐 Datadog on OpenShift 4.x: The Engineering Blueprint
+![Datadog on OpenShift 4.x: The Engineering Blueprint](images/Observability_Platform_Engineering_Blueprint.png)
+
+#### 🔍 Blueprint Architecture & Technical Breakdown:
+- **Prerequisites & Environment**:
+  - **Platform Compatibility**: Tested and optimized for OpenShift 4.10+ up through 4.14 for enterprise feature support.
+  - **Elevated Privileges**: Requires `cluster-admin` for deploying custom Security Context Constraints (SCC) and managing Operator Lifecycle Manager (OLM) subscriptions.
+  - **Required Credentials**: Datadog API Key for cloud intake and DockerHub Secret for pulling automated tracing instrumentation images.
+- **Management & Control Plane Architecture**:
+  - **Datadog Operator (Solution 2 - Recommended)**: Reconciles the `DatadogAgent` Custom Resource Definition (`v2alpha1`) to orchestrate agent lifecycle, automated updates, and DaemonSet configurations.
+  - **Datadog Cluster Agent**: Acts as a proxy between Node Agents and the OpenShift K8s API server, offloading cluster-level metadata lookups, leader election, and providing the External Metrics Server for Horizontal Pod Autoscaling (HPA).
+  - **Control Plane Monitoring**: Implements secure external endpoint polling for K8s API Servers, Controller Managers, and Etcd to bypass container access restrictions in OpenShift 4.x.
+- **APM Mutation & Automatic Library Injection**:
+  - **Developer Action**: Developers apply standard workload manifests using `oc apply` or GitOps pipelines.
+  - **Mutating Admission Webhook**: The Datadog Admission Controller intercepts pod creation requests, scanning for instrumentation annotations and labels.
+  - **Init-Container Injection**: Transparently mutates the Pod spec to inject the `dd-lib` init-container and set language-specific runtime environment variables (Java, Python, Node.js, .NET).
+  - **Automated Tracing**: The application launches with pre-loaded tracer agents, emitting spans and traces directly to the local Node Agent via port `8126` (or Unix Domain Socket).
+- **Compute Plane & Data Flow**:
+  - **Node Agent DaemonSet (eBPF)**: Runs on every worker node to capture node telemetry, container logs, system metrics, and kernel-level socket events via eBPF system probes under custom SCC permissions (`allowHostPID`, `allowPrivilegedContainer`).
+  - **Unified Service Tagging**: Enforces the "Big Three" tags (`env`, `service`, `version`) across all telemetry streams to enable one-click navigation between APM flame graphs, container logs, and infrastructure dashboards.
+  - **Data Intake (Datadog SaaS)**: All telemetry (Metrics, Traces, Logs, and Events) is securely encrypted and streamed to the Datadog Intake API for analysis.
+- **FinOps & Telemetry Cost Control**:
+  - **Worker Node Filtering**: Utilizes `containerExclude` and `containerInclude` to filter noisy system containers (`openshift-*`, `kube-system`) at origin before cloud egress.
+  - **Usage Attribution**: Leverages Datadog UI analytics to monitor indexed log volume and APM span ingestion sliced by `kube_namespace`.
+  - **Resource Profiling**: Calculates baseline CPU/memory usage via `oc top` and configures requests/limits at 2x baseline to withstand bursts without microservice throttling.
+- **Deployment Strategy Comparison Matrix**:
+  - **Solution 1 (Helm v3 / Classic Agent)**: Legacy deployment pattern; recommended only for simple manual manifests.
+  - **Solution 2 (Datadog Operator / OLM)**: Recommended production standard for modern OpenShift platforms.
+  - **APM PoC (Java Spring)**: Reference implementation demonstrating zero-code APM library mutation.
+
+---
 
 ### Observability Blueprint
 ![Observability Blueprint](images/Datadog_on_OpenShift_Observability_Blueprint_for_Container_Platforms.png)
